@@ -1,4 +1,5 @@
 import random;
+import time;
 import string
 import os;
 class Game: 
@@ -311,7 +312,11 @@ class Game:
         if choice == 1:
             print("veuillez spécifier les coordonnées ( sous ce format : [i] [j]): ")
             choice = input().split(' ');
-            s.save_grid("stock.txt",s.emplace_bloc(grid, l[0], int(choice[0]), int(choice[1])));
+            if s.valid_position(grid, l[0], int(choice[0]), int(choice[1])) == True:
+                s.save_grid("stock.txt",s.emplace_bloc(grid, l[0], int(choice[0]), int(choice[1])));
+            else:
+                print("vous n'avez pas exprimer un champ valabe !")
+                time.sleep(5);
         elif choice == 2:
             print(s.print_grid(l[0]))
         elif choice == 3:
@@ -342,7 +347,26 @@ class Game:
                 print(s.print_grid(s.blocs_liste[ok]))
 
     def valid_position(s, grid:list[list], block:list[list], i,j):
-        raise NotImplemented;
+        if grid[i][j] == 0 or grid[i][j] == 2:
+            return False;
+        if grid[i][j-1] == 0 or grid[i][j-1] == 2:
+            return False;
+        if grid[i][j-2] == 0 or grid[i][j-2] == 2:
+            return False;
+        if grid[i-1][j] == 0 or grid[i-1][j] == 2:
+            return False;
+        if grid[i-1][j-1] == 0 or grid[i-1][j-1] == 2:
+            return False;
+        if grid[i-1][j-2] == 0 or grid[i-1][j-2] == 2:
+            return False;
+        if grid[i-2][j] == 0 or grid[i-2][j] == 2:
+            return False;
+        if grid[i-2][j-1] == 0 or grid[i-2][j-1] == 2:
+            return False;
+        if grid[i-2][j-2] == 0 or grid[i-2][j-2] == 2:
+            return False;
+        
+        return True;
         
     def emplace_bloc(s,grid:list[list], block:list[list],i,j):
         if block[4][0] == 1:
