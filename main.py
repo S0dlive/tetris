@@ -309,7 +309,9 @@ class Game:
         
         choice = int(input());
         if choice == 1:
-            print(s.print_grid(l[0]))
+            print("veuillez spécifier les coordonnées ( sous ce format : [i] [j]): ")
+            choice = input().split(' ');
+            s.save_grid("stock.txt",s.emplace_bloc(grid, l[0], int(choice[0]), int(choice[1])));
         elif choice == 2:
             print(s.print_grid(l[0]))
         elif choice == 3:
@@ -339,11 +341,29 @@ class Game:
             for ok in f:
                 print(s.print_grid(s.blocs_liste[ok]))
 
-    def valid_position(s, grid, i,j):
-        raise NotImplemented
-    
-    def emplace_bloc(s,grid,i,j):
-        raise NotImplemented
+    def valid_position(s, grid:list[list], block:list[list], i,j):
+        raise NotImplemented;
+        
+    def emplace_bloc(s,grid:list[list], block:list[list],i,j):
+        if block[4][0] == 1:
+            grid[i][j] = 2;
+        if block[3][0] == 1:
+            grid[i-1][j] = 2;
+        if block[2][0] == 1:
+            grid[i-2][j] = 2;
+        if block[4][1] == 1:
+            grid[i][j+1] = 2;
+        if block[4][2] == 1:
+            grid[i][j+2] = 2;
+        if block[3][1] == 1:
+            grid[i][j+1] = 2;
+        if block[3][2] == 1:
+            grid[i][j+2] = 2
+        if block[2][1] == 1:
+            grid[i][j+1] = 2;
+        if block[2][2] == 1:
+            grid[i][j+2] = 2;
+        return grid;
     
     # lire les grid d'un fichier
     def read_grid(s,path:str) : #qui retourne une grille valide lue à partir du contenu du fichier
@@ -362,7 +382,7 @@ class Game:
                 grid.append(ligne)
         return grid
     
-
+    
     def print_grid(s,grid): #affichage de la grille
         for l in grid:
             for c in l:
