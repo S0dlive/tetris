@@ -1,5 +1,6 @@
 import random;
-
+import string
+import os;
 class Game: 
     blocs_liste = [[[0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0],
@@ -293,13 +294,38 @@ class Game:
                 [0, 0, 1, 0, 0],
                 [0, 0, 1, 1, 0]]]
 
+    def tourn(s,grid, spe):
+        s.print_grid(grid);
+        l = [];
+        f = s.select_block(spe)
+        number = 0;
+        sf = 0;
+        while number < len(f):
+            sf = sf+1;
+            print(sf)
+            print(s.print_grid(s.blocs_liste[f[number]]))
+            l.append(s.blocs_liste[f[number]])
+            number = number + 1;
+        
+        choice = int(input());
+        if choice == 1:
+            print(s.print_grid(l[0]))
+        elif choice == 2:
+            print(s.print_grid(l[0]))
+        elif choice == 3:
+            print(s.print_grid(l[0]))
+    
+    isFinish = False;
+    
     def lunch_game(s, spe):
         if spe == "triangle":
-            grid = s.read_grid("triangle.txt");
-            s.print_grid(grid);
-            f = s.select_block(spe)
-            for ok in f:
-                print(s.print_grid(s.blocs_liste[ok]))
+            grid = s.read_grid("stock.txt");
+            
+            while s.isFinish == False:
+                s.tourn(grid,spe);
+                
+                #clear la console
+                os.system('clear')
         elif spe == "cercle":
             grid = s.read_grid("cercle.txt");
             s.print_grid(grid);
@@ -334,8 +360,7 @@ class Game:
                         ligne.append(2)
 
                 grid.append(ligne)
-            f.close()
-            return grid
+        return grid
     
 
     def print_grid(s,grid): #affichage de la grille
@@ -427,10 +452,6 @@ class Game:
             print(" ")
             print(" ")
             print(" ")
-
-    
-    
-
 
 if __name__ == "__main__":
     game = Game();
