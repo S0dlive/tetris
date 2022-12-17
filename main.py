@@ -318,15 +318,27 @@ class Game:
                 print("vous n'avez pas exprimer un champ valabe !")
                 time.sleep(5);
         elif choice == 2:
-            print(s.print_grid(l[0]))
+            print("veuillez spécifier les coordonnées ( sous ce format : [i] [j]): ")
+            choice = input().split(' ');
+            if s.valid_position(grid, l[1], int(choice[0]), int(choice[1])) == True:
+                s.save_grid("stock.txt",s.emplace_bloc(grid, l[0], int(choice[0]), int(choice[1])));
+            else:
+                print("vous n'avez pas exprimer un champ valabe !")
+                time.sleep(5);
         elif choice == 3:
-            print(s.print_grid(l[0]))
+            print("veuillez spécifier les coordonnées ( sous ce format : [i] [j]): ")
+            choice = input().split(' ');
+            if s.valid_position(grid, l[2], int(choice[0]), int(choice[1])) == True:
+                s.save_grid("stock.txt",s.emplace_bloc(grid, l[0], int(choice[0]), int(choice[1])));
+            else:
+                print("vous n'avez pas exprimer un champ valabe !")
+                time.sleep(5);
     
     isFinish = False;
     
     def lunch_game(s, spe):
         if spe == "triangle":
-            grid = s.read_grid("stock.txt");
+            grid = s.read_grid("triange.txt");
             
             while s.isFinish == False:
                 s.tourn(grid,spe);
@@ -335,16 +347,18 @@ class Game:
                 os.system('clear')
         elif spe == "cercle":
             grid = s.read_grid("cercle.txt");
-            s.print_grid(grid);
-            f = s.select_block(spe)
-            for ok in f:
-                print(s.print_grid(s.blocs_liste[ok]))
+            while s.isFinish == False:
+                s.tourn(grid,spe);
+                
+                #clear la console
+                os.system('clear')
         elif spe == "losange":
             grid = s.read_grid("losange.txt");
-            s.print_grid(grid);
-            f = s.select_block(spe)
-            for ok in f:
-                print(s.print_grid(s.blocs_liste[ok]))
+            while s.isFinish == False:
+                s.tourn(grid,spe);
+                
+                #clear la console
+                os.system('clear')
 
     def valid_position(s, grid:list[list], block:list[list], i,j):
         if grid[i][j] == 0 or grid[i][j] == 2:
@@ -405,7 +419,7 @@ class Game:
 
                 grid.append(ligne)
         return grid
-    
+            
     
     def print_grid(s,grid): #affichage de la grille
         for l in grid:
@@ -458,7 +472,9 @@ class Game:
                 blocs_choice.append(p);
             
         return blocs_choice;
-                
+    
+
+         
     def print_blocs(s,grid): #choix du plateau
         response = [];
         if grid == "triangle":
