@@ -1,6 +1,6 @@
 class Game: 
-
-    def read_grid(path): 
+    # lire les grid d'un fichier
+    def read_grid(s,path:str): 
         with open (path, "r") as f:
             grid = []
             for l in f:
@@ -16,7 +16,7 @@ class Game:
                 grid.append(ligne)
             f.close()
             return grid
-    
+    # Methode qui va faire fonctionner le jeu.
     def start(s):
         print("1. Commencer le jeu")
         print("2. règles du jeu")
@@ -25,9 +25,9 @@ class Game:
             print("Le jeu va commencer . . . ")
             game_choice = input();
             if game_choice == "triangle":
-                raise NotImplemented;
+                print(s.read_grid("triange"));
             if game_choice == "losange":
-                raise NotImplemented;
+                raise NotImplemented
         if choice == 2:
             print(" ")
             print(" ")
