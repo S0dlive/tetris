@@ -1,3 +1,5 @@
+import random;
+
 class Game: 
     blocs_liste = [[[0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0],
@@ -295,13 +297,28 @@ class Game:
         if spe == "triangle":
             grid = s.read_grid("triangle.txt");
             s.print_grid(grid);
+            f = s.select_block(spe)
+            for ok in f:
+                print(s.print_grid(s.blocs_liste[ok]))
         elif spe == "cercle":
             grid = s.read_grid("cercle.txt");
             s.print_grid(grid);
+            f = s.select_block(spe)
+            for ok in f:
+                print(s.print_grid(s.blocs_liste[ok]))
         elif spe == "losange":
             grid = s.read_grid("losange.txt");
             s.print_grid(grid);
+            f = s.select_block(spe)
+            for ok in f:
+                print(s.print_grid(s.blocs_liste[ok]))
 
+    def valid_position(s, grid, i,j):
+        raise NotImplemented
+    
+    def emplace_bloc(s,grid,i,j):
+        raise NotImplemented
+    
     # lire les grid d'un fichier
     def read_grid(s,path:str) : #qui retourne une grille valide lue à partir du contenu du fichier
         with open (path, "r") as f:
@@ -319,16 +336,17 @@ class Game:
                 grid.append(ligne)
             f.close()
             return grid
+    
 
     def print_grid(s,grid): #affichage de la grille
         for l in grid:
             for c in l:
                 if c == 0:  # pas de blocs
-                    print(" ", end=" ")
-                if c == 1: # case vide
                     print(".", end=" ")
-                if c == 2: #,case remplie
+                if c == 1: # case vide
                     print("□", end=" ")
+                if c == 2: #,case remplie
+                    print("■", end=" ")
             print()
 
     def save_grid(s,path, grid) : #sauvegarde de le grille
@@ -348,17 +366,42 @@ class Game:
     #liste des blocs pour le plateau cercle
     losange_liste = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 43, 44, 45, 46, 47, 48, 49, 50,
                     51, 52, 53, 54, 55, 56]
- 
-    def print_blocs(grid): #choix du plateau
+    
+    def select_block(s,spe):
+        blocs_choice = [];
+        if spe == "triangle":
+            t = 0;
+            while t < 3:
+                p = random.randint(0, len(s.triangle_liste));
+                t = t + 1;
+                blocs_choice.append(p);
+        if spe == "cercle":
+            t = 0;
+            while t < 3:
+                p = random.randint(0, len(s.cercle_liste));
+                t = t + 1;
+                blocs_choice.append(p);
+        if spe == "losange":
+            t = 0;
+            while t < 3:
+                p = random.randint(0, len(s.losange_liste));
+                t = t + 1;
+                blocs_choice.append(p);
+            
+        return blocs_choice;
+                
+    def print_blocs(s,grid): #choix du plateau
+        response = [];
         if grid == "triangle":
-            for case in triangle_liste:
-                print(blocs_liste[case])
+            for case in s.triangle_liste:
+                response.append(s.blocs_liste[case]);
+            return response;
         elif grid == "cercle":
-            for case in cercle_liste:
-                print(blocs_liste[case])
+            for case in s.cercle_liste:
+                return s.blocs_liste[case]
         elif grid == "losange":
-            for case in losange_liste:
-                print(blocs_liste[case])
+            for case in s.losange_liste:
+                return s.blocs_liste[case]
         else:
             print("choissisez une forme valide")
             
@@ -384,7 +427,6 @@ class Game:
             print(" ")
             print(" ")
             print(" ")
-
 
     
     
