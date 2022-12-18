@@ -2,6 +2,7 @@ import random;
 import time;
 import string
 import os;
+
 class Game: 
     blocs_liste = [[[0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0],
@@ -441,6 +442,7 @@ class Game:
                 f.write("\n")
             f.close()
 
+    
     triangle_liste = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
                                     24, 25, 26, 27, 28, 29, 30]
     #liste des blocs pour le plateau triangle
@@ -473,7 +475,22 @@ class Game:
             
         return blocs_choice;
     
-
+    def row_stats(s,grid:list[list], i):
+        t = True;
+        for te in grid[i][0]:
+            if te == 1:
+                t = False;
+        return t;
+    
+    def row_clear(s, grid:list[list],i):
+        del(grid[i]);
+    
+    def col_clear(s,grid:list[list],j):
+        tn = 0
+        for t in grid:
+            del(grid[tn][j])
+            tn = tn+1;
+        
          
     def print_blocs(s,grid): #choix du plateau
         response = [];
@@ -517,4 +534,3 @@ if __name__ == "__main__":
     game = Game();
     while(True):
         game.start();
-
